@@ -1,0 +1,15 @@
+var address = document.getElementById("user_user_profile_attributes_address");
+var cep = document.getElementById("cep");
+
+<% unless @cep.logradouro %>
+    $.bootstrapGrowl('Cep não encontrado', {
+    type: 'danger', // (null, 'info', 'danger', 'success')
+    align: 'center', // ('left', 'right', or 'center')
+    allow_dismiss: true, // If true then will display a cross to close the popup.
+    stackup_spacing: 10 // spacing between consecutively stacked growls.
+    });
+    address.value = '';
+    cep.value = '';
+<% else %>
+  address.value = '<%= @cep.endereco %>';
+<% end %>
