@@ -16,10 +16,14 @@ class Site::SearchController < SiteController
     # com o comando sudo systemctl stop elasticsearch.service e utilizar o modo abaixo. 
     # No model question.rb descomentar searchkick
     # Caso contrario startar o serviço e usar o modo acima
-    @questions = Question._search_(params[:page], params[:term])
+    @questions = Question._search_(params[:page], params[:term], params[:subject_id])
+    @subjects = Subject.all #where(id: params[:subject_id] )
+    # subject = Subject.find(params[:subject_id])
+    # @subjects.new(subject)
   end
 
   def subject
     @questions = Question._search_subject_(params[:page], params[:subject_id])
+    @subjects = Subject.all #where(id: params[:subject_id] )
   end
 end

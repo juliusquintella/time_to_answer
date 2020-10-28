@@ -18,9 +18,10 @@ class Question < ApplicationRecord
     .page(page)
   }
 
-  scope :_search_, ->(page, term){
+  scope :_search_, ->(page, term, subject_id){
+    parametro = (subject_id.blank? ? "null" : subject_id) 
     includes(:answers, :subject)
-    .where("lower(description) LIKE ?", "%#{term.downcase}%")
+    .where("lower(description) LIKE ? and subject_id = ? ", "%#{term.downcase}%", parametro)
     .page(page)
   }
 
